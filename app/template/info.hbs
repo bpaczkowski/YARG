@@ -1,0 +1,44 @@
+<span class="header">Info</span>
+<hr class="bar">
+{{#if buying}}
+    {{#if canBuild}}
+        {{#if canBuy}}
+            <span>Click to buy component.</span>
+        {{else}}
+            <span>You don't have enough money to buy this component.</span>
+        {{/if}}
+    {{else}}
+        <span>You can't build here.</span>
+    {{/if}}
+{{else if tile}}
+    {{#ifCond tile.component.type '!==' 'None'}}
+        {{#tile}}
+            {{#component}}
+                <span>{{name}}</span><br>
+                {{#if heatProduction}}
+                    <span>Produces <span class="heatText">{{heatProduction}}</span> heat per tick.</span><br>
+                {{/if}}
+                {{#if heatAbsorption}}
+                    <span>Absorbs <span class="heatText">{{heatAbsorption}}</span> heat per tick.</span><br>
+                {{/if}}
+                <span>Heat: {{toFixed ../heatValue 0}}/{{maxHeat}}</span>
+            {{/component}}
+        {{/tile}}
+    {{else}}
+        <span>{{tile.type.type}}</span>
+    {{/ifCond}}
+{{else if component}}
+    {{#component}}
+        <span>{{name}}</span><br>
+        <span>Price: ${{price}}</span><br>
+        {{#if lifetime}}<span>Lifetime: {{lifetime}} ticks.</span><br>{{/if}}
+        {{#if heatProduction}}
+            <span>Produces <span class="heatText">{{heatProduction}}</span> heat per tick.</span><br>
+        {{/if}}
+        {{#if heatAbsorption}}
+            <span>Absorbs <span class="heatText">{{heatAbsorption}}</span> heat per tick.</span>
+        {{/if}}
+    {{/component}}
+{{else}}
+    <span>Hover over tile or component to show more info.</span>
+{{/if}}

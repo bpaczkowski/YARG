@@ -1,0 +1,37 @@
+{
+  "name": "yarg",
+  "version": "1.0.0",
+  "description": "Yet Another Reactor Game",
+  "main": "App.coffee",
+  "license": "GPLv3",
+  "author": "Krzaku",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krzaku12/YARG.git"
+  },
+  "bugs": {
+    "url": "https://github.com/krzaku12/YARG/issues"
+  },
+  "homepage": "https://github.com/krzaku12/YARG#readme",
+  "scripts": {
+    "watch": "./node_modules/.bin/gulp watch",
+    "build": "./node_modules/.bin/gulp build",
+    "builddev": "./node_modules/.bin/gulp builddev"
+  },
+  "dependencies": {
+    "handlebars": "^4.0.5",
+    "jquery": "^2.2.2"
+  },
+  "devDependencies": {
+    "coffee-loader": "^0.7.2",
+    "coffee-script": "^1.9.3",
+    "gulp": "^3.9.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-live-server": "0.0.29",
+    "gulp-size": "^1.2.1",
+    "gulp-sync": "^0.1.4",
+    "gulp-util": "^3.0.5",
+    "handlebars-loader": "^1.2.0",
+    "webpack": "^1.12.0"
+  }
+}

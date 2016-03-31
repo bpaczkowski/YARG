@@ -1,0 +1,13 @@
+<span class="header">Components</span>
+<hr class="bar">
+<div id="componentsTable">
+    {{#each components}}
+        {{#.}}
+            {{#if image}}
+                <div class="component" component="{{codename}}" style="background-image: url({{image}})"></div>
+            {{else}}
+                <div class="component" component="{{codename}}" style="background-image: url({{../placeholder/image}})"></div>
+            {{/if}}
+        {{/.}}
+    {{/each}}
+</div>

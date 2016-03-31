@@ -1,0 +1,42 @@
+#overview {
+    height: 120px;
+    width: 25%;
+}
+
+#info,
+#overview,
+#components {
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #DDD;
+    box-shadow: 0 0 4px 1px #BBB;
+}
+
+#gameTable {
+    width: 100%;
+    height: 460px;
+    border-spacing: 8px;
+}
+
+hr.bar {
+    width: auto;
+    margin: 0 -5px 0 -5px;
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.heatText {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #FF4848;
+    text-shadow: 0 0 3px #AAA;
+}
+
+.moneyText {
+    font-weight: 600;
+    font-size: 1.15em;
+    color: #959500;
+    text-shadow: 0 0 2px #AAA;
+}

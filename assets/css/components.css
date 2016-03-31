@@ -1,0 +1,21 @@
+#componentsTable {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.component {
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    border-radius: 10%;
+    float: left;
+    margin: 1.5px;
+}
+
+.component:hover {
+    box-shadow: 0 0 .75px 2px #333;
+}
+
+.component.selected {
+    box-shadow: 0 0 .75px 2px #DA4343;
+}

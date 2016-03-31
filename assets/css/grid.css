@@ -1,0 +1,40 @@
+.tile {
+    position: relative;
+    overflow: hidden;
+    float: left;
+    border-radius: 20%;
+}
+
+.tile:hover {
+    z-index: 1;
+    box-shadow: 0 0 .75px 2px #333;
+    border-radius: 10%;
+}
+
+.heatBarMax {
+    overflow: hidden;
+    border-radius: 15%;
+    height: 6px;
+    width: 100%;
+    background-color: lightcoral;
+    opacity: .8;
+}
+
+.heatBar {
+    height: 100%;
+    background-color: red;
+}
+
+.lifetimeBarMax {
+    overflow: hidden;
+    border-radius: 15%;
+    height: 6px;
+    width: 100%;
+    background-color: lightgreen;
+    opacity: .8;
+}
+
+.lifetimeBar {
+    height: 100%;
+    background-color: green;
+}

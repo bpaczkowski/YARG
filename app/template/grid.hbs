@@ -1,0 +1,16 @@
+{{#each tiles}}
+    {{#with .}}
+        <div class="tile" data-tile-x={{x}} data-tile-y={{y}} style="width: {{../cellWidth}}px; height: {{../cellWidth}}px; background-image: {{#if occupied}}url({{image}}), {{/if}}url({{../noneImage}})">
+            {{#if lifeBar}}
+                <div class="lifetimeBarMax">
+                    <div class="lifetimeBar"></div>
+                </div>
+            {{/if}}
+            {{#if heatBar}}
+                <div class="heatBarMax">
+                    <div class="heatBar"></div>
+                </div>
+            {{/if}}
+        </div>
+    {{/with}}
+{{/each}}
