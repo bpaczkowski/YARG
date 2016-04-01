@@ -8,7 +8,7 @@ module.exports = class InfoUi
     @main.eventManager.on 'ComponentHovered', @_componentHovered
     @main.eventManager.on 'ComponentClicked', @_componentClicked
     @main.eventManager.on 'CellHovered', @_cellHovered
-    @main.eventManager.on 'GridUpdate', @_gridUpdate
+    @main.eventManager.on 'StateUpdate', @_updateState
     @main.eventManager.emit 'CellHovered'
     return
 
@@ -17,7 +17,7 @@ module.exports = class InfoUi
     @main.eventManager.off 'ComponentHovered', @_componentHovered
     @main.eventManager.off 'ComponentClicked', @_componentClicked
     @main.eventManager.off 'CellHovered', @_cellHovered
-    @main.eventManager.off 'GridUpdate', @_gridUpdate
+    @main.eventManager.off 'StateUpdate', @_updateState
     @infoContainer.html ''
     @infoContainer = null
 
@@ -41,20 +41,20 @@ module.exports = class InfoUi
     if @component and @tile
       @infoContainer.html @template {
         buying: true,
-        canBuild: @tile.type.canBuild && @tile.component.type is 'None',
+        canBuild: @tile.type.canBuild and @tile.component.type is 'None',
         canBuy: @main.grid.money >= @component.price
       }
     if not @component
       @infoContainer.html @template { @tile }
     return
 
-  _gridUpdate: =>
+  _updateState: =>
     if not @component and @tile
       @infoContainer.html @template { @tile }
     else if @component and @tile
       @infoContainer.html @template {
         buying: true,
-        canBuild: @tile.type.canBuild && @tile.component.type is 'None',
+        canBuild: @tile.type.canBuild and @tile.component.type is 'None',
         canBuy: @main.grid.money >= @component.price
       }
     return

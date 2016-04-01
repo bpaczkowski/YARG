@@ -103,7 +103,7 @@
         "level": "error"
     },
     "no_trailing_semicolons": {
-        "level": "warning"
+        "level": "warn"
     },
     "no_trailing_whitespace": {
         "level": "warn",

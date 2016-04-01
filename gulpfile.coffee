@@ -10,9 +10,9 @@ webpackProductionConfig = require './webpack.production.config.js'
 
 gulp.task('clean', ->
   gulp.src('public', {
-      read: false
+    read: false
   })
-  .pipe(clean());
+  .pipe(clean())
 )
 
 gulp.task('copy-assets', ->
@@ -44,9 +44,13 @@ gulp.task 'default', ['watch']
 gulp.task 'build', gulpsync.sync ['clean', ['webpack:build', 'copy-assets']]
 gulp.task 'builddev', ['webpack:build-dev', 'copy-assets']
 
-gulp.task 'watch', ['copy-assets', 'webpack:build-dev'], ->
-  server = gls.static('./public/');
-  server.start();
+gulp.task 'serve', gulpsync.sync(['clean', ['webpack:build', 'copy-assets']]), ->
+  server = gls.static('./public/')
+  server.start()
+
+gulp.task 'watch', ['webpack:build-dev', 'copy-assets'], ->
+  server = gls.static('./public/')
+  server.start()
 
   gulp.watch 'public/**', (file) ->
     server.notify.apply server, [file]

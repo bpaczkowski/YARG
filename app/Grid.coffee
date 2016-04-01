@@ -4,8 +4,9 @@ Components = require 'config/Components'
 module.exports = class Grid
   constructor: (@main, @height, @width) ->
     @tiles = (new Tile @, @_1Dto2D(index).column, @_1Dto2D(index).row, index for index in [0...@height * @width])
-    @money = 1000
+    @money = 1000000
     @selectedComponent = Components.none
+    @tilesToRefresh = []
 
   _2Dto1D: (row, column) ->
     row * @height + column
@@ -14,45 +15,75 @@ module.exports = class Grid
     row: Math.floor(index / @height)
     column: index % @height
 
-  getTile: (row, column) ->
-    @tiles[@_2Dto1D(row, column)]
+  # removes duplicate tiles from an array
+  _uniqueTileArray: (array) ->
+    a = array.concat()
+    for i in [0...array.length]
+      for j in [i + 1...array.length]
+        if a[i]?.index is a[j]?.index
+          a.splice j--, 1
+    a
+
+  ###
+  # 1 parameter: index
+  # 2 parameters: row, column
+  # returns tile
+  ###
+  getTile: ->
+    if arguments.length is 2
+      @tiles[@_2Dto1D(arguments[0], arguments[1])]
+    else if arguments.length is 1
+      @tiles[arguments[0]]
 
   tick: ->
-    changed = @tickComponents()
-    changed = @tickHeat()
-    if changed
-      @main.eventManager.emit 'StateUpdate', @
+    @tickComponents()
+    @tickHeat()
+
+    if @tilesToRefresh.length > 0
+      @tilesToRefresh = @_uniqueTileArray @tilesToRefresh
+      @main.eventManager.emit 'TilesUpdate', @tilesToRefresh
+      @tilesToRefresh = []
+    @main.eventManager.emit 'StateUpdate', @
     return
 
   tickComponents: ->
-    changed = false
     money = 0
+    tilesToRefresh = []
     for tile in @tiles
-      if tile.component.type is 'None' and tile.heatValue isnt 0
-        tile.heatValue = 0
-        changed = true
+      changed = false
+
+      # Calculation for 'cell' component type
       if tile.component.type is 'Cell'
         tile.heatValue += tile.component.heatProduction
-        changed = true
+
+      # Calculation for 'generator' component type
       if tile.component.type is 'Gen'
         if tile.heatValue < tile.component.heatAbsorption
           absorbed = tile.heatValue
         else
           absorbed = tile.component.heatAbsorption
         tile.heatValue -= absorbed
-        changed = true
         money += absorbed * tile.component.heatAbsorbedToMoneyMultiplier
-      if tile.component?.lifetime?
-        if tile.lifetimeValue == tile.component.lifetime
+
+      # Tile lifetime calculation
+      if tile.component.type isnt 'None' and tile.component.lifetime?
+        if tile.lifetimeValue is tile.component.lifetime
           tile.resetTile()
-          @main.eventManager.emit 'GridUpdate', @
+          changed = true
         else
           tile.lifetimeValue += 1
+
+      # Destroy tile if it gets too hot
       if tile.heatValue > tile.component.maxHeat
         tile.component = Components.none
-        @main.eventManager.emit 'GridUpdate', @
+        tile.resetTile()
+        changed = true
+
+      # Push the tile to UI update list
+      @tilesToRefresh.push tile if changed
+
     @addMoney money if money > 0
-    changed
+    return
 
   tickHeat: ->
     newHeatValues = []
@@ -82,35 +113,53 @@ module.exports = class Grid
         heat += tile.getRightTile().heatValue
         n++
       newHeatValues.push heat / n
-    changed = false
     index = 0
     for tile in @tiles when tile.component.type isnt 'None'
       if tile.heatValue isnt newHeatValues[index]
         tile.heatValue = newHeatValues[index]
-        changed = true
       index++
-    changed
+    return
 
   getTotalHeat: ->
     heat = 0
     (heat += tile.heatValue unless tile.heatValue < 0) for tile in @tiles when tile.component.type isnt 'None'
     heat
 
-  setComponent: (component, row, column) ->
-    tile = @getTile row, column
+  ###
+  # sets a tile to the component from the 1st parameter
+  # 2nd and 3rd parameter can be either row/column or an index
+  ###
+  setComponent: ->
+    return false if arguments.length < 2
+    component = arguments[0]
+    if arguments.length is 3
+      tile = @getTile arguments[1], arguments[2]
+    else if arguments.length is 2
+      tile = @getTile arguments[1]
+
     if tile and tile.type.canBuild
       tile.component = component
-      @main.eventManager.emit 'GridUpdate', @
+      @tilesToRefresh.push tile
       return true
     return false
 
-  buyComponent: (component, row, column) ->
-    tile = @getTile row, column
+  ###
+  # buys component from the 1st parameter
+  # 2nd and 3rd parameter can be either row/column or an index
+  ###
+  buyComponent: ->
+    return false if arguments.length < 2
+    component = arguments[0]
+    if arguments.length is 3
+      tile = @getTile arguments[1], arguments[2]
+    else if arguments.length is 2
+      tile = @getTile arguments[1]
+
     if tile and tile.type.canBuild and
     tile.component.type is 'None' and @money >= component.price
       tile.component = component
       @money -= component.price
-      @main.eventManager.emit 'GridUpdate', @
+      @tilesToRefresh.push tile
       return true
     return false
 

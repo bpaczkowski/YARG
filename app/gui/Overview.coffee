@@ -16,7 +16,7 @@ module.exports = class OverviewUi
     @overviewContainer = null
 
   _overviewUpdate: (force) =>
-    if force or @_lastUpdate and Date.now() - @_lastUpdate > 1000 / 60
+    if force or @_lastUpdate and Date.now() - @_lastUpdate > 1000 / 30
       @overviewContainer.html @template { money: @main.grid.money }
       @_lastUpdate = Date.now()
     else unless @_lastUpdate?

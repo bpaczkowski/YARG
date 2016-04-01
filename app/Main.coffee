@@ -9,10 +9,22 @@ module.exports = class Main
     @grid = new Grid @, @height, @width
     @gameUi = new GameUi @grid
     @gameUi.show '#game'
-    @grid.setComponent Components.Cell1, 0, 0
-    @grid.setComponent Components.Gen2, 0, 1
-    @grid.setComponent Components.Cell1, 1, 1
-    @grid.setComponent Components.Gen2, 1, 0
+    @setupTestGrid()
+
+  setupTestGrid: ->
+    for row in [0...@height]
+      for column in [0...@width]
+        if row % 2 is 0
+          if column % 2 is 0
+            @grid.setComponent Components.Cell1, row, column
+          else
+            @grid.setComponent Components.Gen2, row, column
+        else
+          if column % 2 isnt 0
+            @grid.setComponent Components.Cell1, row, column
+          else
+            @grid.setComponent Components.Gen2, row, column
+    return
 
   start: ->
     @timer = setInterval =>

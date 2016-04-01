@@ -3,14 +3,11 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: './app/App',
-  devtool: 'eval-inline-source-map',
+  devtool: 'inline-source-map',
   debug: true,
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'app.js',
-  },
-  resolveLoader: {
-    modulesDirectories: ['node_modules']
   },
   resolve: {
     root: path.resolve('./app'),
