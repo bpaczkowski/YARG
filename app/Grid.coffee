@@ -139,7 +139,7 @@ module.exports = class Grid
 
     if tile and tile.type.canBuild
       tile.component = component
-      @tilesToRefresh.push tile
+      @main.eventManager.emit 'TilesUpdate', [ tile ]
       return true
     return false
 
@@ -159,7 +159,7 @@ module.exports = class Grid
     tile.component.type is 'None' and @money >= component.price
       tile.component = component
       @money -= component.price
-      @tilesToRefresh.push tile
+      @main.eventManager.emit 'TilesUpdate', [ tile ]
       return true
     return false
 
