@@ -1,6 +1,3 @@
 {{#each tiles}}
-    {{#with .}}
-        <div class="tile" data-tile-index={{index}} style="width: {{../cellWidth}}px; height: {{../cellWidth}}px; background-image: {{#if image}}url({{image}}), {{/if}}url({{../noneImage}})">
-        </div>
-    {{/with}}
+    <div class="tile" data-tile-index={{.}} style="width: {{../cellWidth}}px; height: {{../cellWidth}}px; background-image: url({{../noneImage}})"></div>
 {{/each}}

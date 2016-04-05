@@ -12,8 +12,8 @@
     {{/if}}
 {{else if tile}}
     {{#ifCond tile.component.type '!==' 'None'}}
-        {{#tile}}
-            {{#component}}
+        {{#with tile}}
+            {{#with component}}
                 <span>{{name}}</span><br>
                 {{#if heatProduction}}
                     <span>Produces <span class="heatText">{{heatProduction}}</span> heat per tick.</span><br>
@@ -27,13 +27,13 @@
                 {{#if lifetime}}
                     <span>Lifetime: {{math lifetime '-' ../lifetimeValue}}/{{lifetime}}</span>
                 {{/if}}
-            {{/component}}
-        {{/tile}}
+            {{/with}}
+        {{/with}}
     {{else}}
         <span>{{tile.type.type}}</span>
     {{/ifCond}}
 {{else if component}}
-    {{#component}}
+    {{#with component}}
         <span>{{name}}</span><br>
         <span>Price: ${{price}}</span><br>
         {{#if lifetime}}<span>Lifetime: {{lifetime}} ticks.</span><br>{{/if}}
@@ -43,7 +43,7 @@
         {{#if heatAbsorption}}
             <span>Absorbs <span class="heatText">{{heatAbsorption}}</span> heat per tick.</span>
         {{/if}}
-    {{/component}}
+    {{/with}}
 {{else}}
     <span>Hover over tile or component to show more info.</span>
 {{/if}}

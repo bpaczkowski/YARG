@@ -90,13 +90,9 @@ module.exports = class GridUi
 
   _getGrid: (grid) ->
     gridTable =
-      tableWidth: grid.width * @_cellWidth
-      tableHeight: grid.height * @_cellWidth
       cellWidth: @_cellWidth
       noneImage: Components.none.image
       tiles: []
     for tile in grid.tiles
-      gridTable.tiles.push
-        index: tile.index
-        image: tile.component.image or Components.placeholder.image
+      gridTable.tiles.push tile.index
     gridTable
