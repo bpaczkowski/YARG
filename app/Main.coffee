@@ -7,9 +7,16 @@ module.exports = class Main
   constructor: (@height, @width) ->
     @eventManager = new EventManager()
     @grid = new Grid @, @height, @width
+    @money = 20000
     @gameUi = new GameUi @grid
     @gameUi.show '#game'
     @setupTestGrid()
+
+  addMoney: (money) ->
+    return unless money isnt 0
+    @money += money
+    @eventManager.emit 'OverviewUpdate'
+    return
 
   setupTestGrid: ->
     for row in [0...@height]

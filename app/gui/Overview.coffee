@@ -6,7 +6,7 @@ module.exports = class OverviewUi
 
   show: (@overviewContainer) ->
     @main.eventManager.on 'OverviewUpdate', @_overviewUpdate
-    @main.eventManager.emit 'OverviewUpdate'
+    @main.eventManager.emit 'OverviewUpdate', true
     return
 
   hide: ->
@@ -17,7 +17,7 @@ module.exports = class OverviewUi
 
   _overviewUpdate: (force) =>
     if force or @_lastUpdate and Date.now() - @_lastUpdate > 1000 / 30
-      @overviewContainer.html @template { money: @main.grid.money }
+      @overviewContainer.html @template { money: @main.money }
       @_lastUpdate = Date.now()
     else unless @_lastUpdate?
       @_lastUpdate = Date.now()

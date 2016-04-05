@@ -42,7 +42,7 @@ module.exports = class InfoUi
       @infoContainer.html @template {
         buying: true,
         canBuild: @tile.type.canBuild and @tile.component.type is 'None',
-        canBuy: @main.grid.money >= @component.price
+        canBuy: @main.money >= @component.price
       }
     if not @component
       @infoContainer.html @template { @tile }
@@ -55,6 +55,6 @@ module.exports = class InfoUi
       @infoContainer.html @template {
         buying: true,
         canBuild: @tile.type.canBuild and @tile.component.type is 'None',
-        canBuy: @main.grid.money >= @component.price
+        canBuy: @main.money >= @component.price
       }
     return

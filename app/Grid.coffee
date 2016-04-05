@@ -4,13 +4,14 @@ Components = require 'config/Components'
 module.exports = class Grid
   constructor: (@main, @height, @width) ->
     @tiles = (new Tile @, @_1Dto2D(index).column, @_1Dto2D(index).row, index for index in [0...@height * @width])
-    @money = 1000000
     @selectedComponent = Components.none
     @tilesToRefresh = []
 
+  # converts row/column location to index value
   _2Dto1D: (row, column) ->
     row * @height + column
 
+  # converts index value to row/column location
   _1Dto2D: (index) ->
     row: Math.floor(index / @height)
     column: index % @height
@@ -82,7 +83,7 @@ module.exports = class Grid
       # Push the tile to UI update list
       @tilesToRefresh.push tile if changed
 
-    @addMoney money if money > 0
+    @main.addMoney money if money > 0
     return
 
   tickHeat: ->
@@ -156,15 +157,9 @@ module.exports = class Grid
       tile = @getTile arguments[1]
 
     if tile and tile.type.canBuild and
-    tile.component.type is 'None' and @money >= component.price
+    tile.component.type is 'None' and @main.money >= component.price
       tile.component = component
-      @money -= component.price
+      @main.addMoney -component.price
       @main.eventManager.emit 'TilesUpdate', [ tile ]
       return true
     return false
-
-  addMoney: (money) ->
-    return unless money isnt 0
-    @money += money
-    @main.eventManager.emit 'OverviewUpdate'
-    return
