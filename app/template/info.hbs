@@ -21,7 +21,9 @@
                 {{#if heatAbsorption}}
                     <span>Absorbs <span class="heatText">{{heatAbsorption}}</span> heat per tick.</span><br>
                 {{/if}}
-                <span>Heat: {{toFixed ../heatValue 0}}/{{maxHeat}}</span><br>
+                {{#if heatCanTransfer}}
+                    <span>Heat: {{toFixed ../heatValue 0}}/{{maxHeat}}</span><br>
+                {{/if}}
                 {{#if lifetime}}
                     <span>Lifetime: {{math lifetime '-' ../lifetimeValue}}/{{lifetime}}</span>
                 {{/if}}
