@@ -15,7 +15,7 @@ module.exports = class EventManager
     unless @channels[name]?
       console.error('Non-existent event was emitted: ' + name)
       return
+    console.info("Event: #{name}")#, Stack:")
+    #console.info(new Error().stack)
     for sub in @channels[name]
-      #console.info("Event: #{name}")#, Stack:")
-      #console.info(new Error().stack)
       sub.callback.apply(sub.context, data)

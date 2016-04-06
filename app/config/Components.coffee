@@ -24,7 +24,7 @@ module.exports =
     image: 'img/components/cell.png'
     heatCanTransfer: true
     heatProduction: 20
-    maxHeat: 100
+    maxHeat: 200
     price: 500
     lifetime: 100
   Gen1:
@@ -33,9 +33,10 @@ module.exports =
     type: 'Gen'
     image: 'img/components/steam-turbine.png'
     heatCanTransfer: true
+    canAcceptHeat: true
     heatAbsorption: 5
     maxHeat: 50
-    heatAbsorbedToMoneyMultiplier: .1
+    heatAbsorbedToMoneyMultiplier: .2
     price: 250
   Gen2:
     codename: 'Gen2'
@@ -43,7 +44,8 @@ module.exports =
     type: 'Gen'
     image: 'img/components/steam-turbine.png'
     heatCanTransfer: true
+    canAcceptHeat: true
     heatAbsorption: 20
-    maxHeat: 150
+    maxHeat: 200
     heatAbsorbedToMoneyMultiplier: .4
     price: 2000

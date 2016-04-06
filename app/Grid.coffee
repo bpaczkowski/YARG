@@ -4,6 +4,7 @@ Components = require 'config/Components'
 module.exports = class Grid
   constructor: (@main, @height, @width) ->
     @tiles = (new Tile @, @_1Dto2D(index).column, @_1Dto2D(index).row, index for index in [0...@height * @width])
+    tile.setNeighboringTiles() for tile in @tiles
     @selectedComponent = Components.none
     @tilesToRefresh = []
 
@@ -38,7 +39,6 @@ module.exports = class Grid
 
   tick: ->
     @tickComponents()
-    @tickHeat()
 
     if @tilesToRefresh.length > 0
       @tilesToRefresh = @_uniqueTileArray @tilesToRefresh
@@ -49,22 +49,14 @@ module.exports = class Grid
 
   tickComponents: ->
     money = 0
-    tilesToRefresh = []
     for tile in @tiles
       changed = false
 
-      # Calculation for 'cell' component type
-      if tile.component.type is 'Cell'
-        tile.heatValue += tile.component.heatProduction
-
-      # Calculation for 'generator' component type
-      if tile.component.type is 'Gen'
-        if tile.heatValue < tile.component.heatAbsorption
-          absorbed = tile.heatValue
-        else
-          absorbed = tile.component.heatAbsorption
-        tile.heatValue -= absorbed
-        money += absorbed * tile.component.heatAbsorbedToMoneyMultiplier
+      # Destroy tile if it gets too hot
+      if tile.heatValue > tile.component.maxHeat
+        tile.component = Components.none
+        tile.resetTile()
+        changed = true
 
       # Tile lifetime calculation
       if tile.component.type isnt 'None' and tile.component.lifetime?
@@ -74,51 +66,31 @@ module.exports = class Grid
         else
           tile.lifetimeValue += 1
 
-      # Destroy tile if it gets too hot
-      if tile.heatValue > tile.component.maxHeat
-        tile.component = Components.none
-        tile.resetTile()
-        changed = true
+      # Calculation for 'cell' component type
+      if tile.component.type is 'Cell'
+        neighbors = tile.getAcceptingNeighbors()
+        if neighbors.length is 0
+          tile.resetTile()
+          changed = true
+        else
+          heat = tile.component.heatProduction / neighbors.length
+          neighbor.heatValue += heat for neighbor in neighbors
 
       # Push the tile to UI update list
       @tilesToRefresh.push tile if changed
 
+    # Gen has its own loop so all Gens get heated up before they start absorbing heat
+    for tile in @tiles
+      # Calculation for 'generator' component type
+      if tile.component.type is 'Gen'
+        if tile.heatValue < tile.component.heatAbsorption
+          absorbed = tile.heatValue
+        else
+          absorbed = tile.component.heatAbsorption
+        tile.heatValue -= absorbed
+        money += absorbed * tile.component.heatAbsorbedToMoneyMultiplier
+
     @main.addMoney money if money > 0
-    return
-
-  tickHeat: ->
-    newHeatValues = []
-    for tile in @tiles when tile.component.type isnt 'None'
-      n = 1
-      heat = tile.heatValue
-
-      topTile = tile.getTopTile()
-      top = topTile? and topTile.component.type isnt 'None' and topTile.component.heatCanTransfer
-      bottomTile = tile.getBottomTile()
-      bottom = bottomTile? and bottomTile.component.type isnt 'None' and bottomTile.component.heatCanTransfer
-      leftTile = tile.getLeftTile()
-      left = leftTile? and leftTile.component.type isnt 'None' and leftTile.component.heatCanTransfer
-      rightTile = tile.getRightTile()
-      right = rightTile? and rightTile.component.type isnt 'None' and rightTile.component.heatCanTransfer
-
-      if top
-        heat += tile.getTopTile().heatValue
-        n++
-      if bottom
-        heat += tile.getBottomTile().heatValue
-        n++
-      if left
-        heat += tile.getLeftTile().heatValue
-        n++
-      if right
-        heat += tile.getRightTile().heatValue
-        n++
-      newHeatValues.push heat / n
-    index = 0
-    for tile in @tiles when tile.component.type isnt 'None'
-      if tile.heatValue isnt newHeatValues[index]
-        tile.heatValue = newHeatValues[index]
-      index++
     return
 
   getTotalHeat: ->
