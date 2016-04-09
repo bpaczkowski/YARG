@@ -10,15 +10,14 @@ html {
 }
 
 body {
-    font-size: 14px;
     font-family: 'Open Sans', sans-serif;
-    color: #222;
-    /*background: #0f001a url(../img/background.png);*/
-    cursor: default;
-}
+    font-size: 14px;
 
-body {
-    user-select: none;
+    cursor: default;
+    -webkit-user-select: none;
+            user-select: none;
+
+    color: #222;
 }
 
 #app {
@@ -29,12 +28,12 @@ body {
 }
 
 #game {
+    width: 800px;
+    margin: auto;
     padding: 5px;
+
     border: 1px solid #999;
     border-radius: 10px;
+    background-color: #eee;
     box-shadow: 0 0 8px 3px #999;
-    /*border-color: rgba(128, 128, 128, .4);*/
-    background-color: #EEE;
-    margin: auto;
-    width: 800px;
 }

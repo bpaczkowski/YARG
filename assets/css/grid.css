@@ -1,40 +1,49 @@
 .tile {
     position: relative;
-    overflow: hidden;
+
     float: left;
+    overflow: hidden;
+
     border-radius: 20%;
 }
 
 .tile:hover {
     z-index: 1;
-    box-shadow: 0 0 .75px 2px #333;
+
     border-radius: 10%;
+    box-shadow: 0 0 .75px 2px #333;
 }
 
 .heatBarMax {
     overflow: hidden;
-    border-radius: 15%;
-    height: 6px;
+
     width: 100%;
-    background-color: lightcoral;
+    height: 6px;
+
     opacity: .8;
+    border-radius: 15%;
+    background-color: lightcoral;
 }
 
 .heatBar {
     height: 100%;
+
     background-color: red;
 }
 
 .lifetimeBarMax {
     overflow: hidden;
-    border-radius: 15%;
-    height: 6px;
+
     width: 100%;
-    background-color: lightgreen;
+    height: 6px;
+
     opacity: .8;
+    border-radius: 15%;
+    background-color: lightgreen;
 }
 
 .lifetimeBar {
     height: 100%;
+
     background-color: green;
 }
