@@ -5,3 +5,7 @@ public
 
 # KDE Dolphin
 .directory
+
+# Sublime Text 3
+*.sublime-project
+*.sublime-workspace
