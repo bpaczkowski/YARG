@@ -3,6 +3,7 @@ GridUi = require 'gui/Grid'
 InfoUi = require 'gui/Info'
 OverviewUi = require 'gui/Overview'
 ComponentsUi = require 'gui/Components'
+ResearchUi = require 'gui/Research'
 $ = require 'jquery'
 
 module.exports = class GameUi
@@ -12,6 +13,7 @@ module.exports = class GameUi
     @info = new InfoUi @main
     @overview = new OverviewUi @main
     @components = new ComponentsUi @main
+    @research = new ResearchUi @main
 
   show: ->
     @gameContainer = $ '#app'
@@ -20,4 +22,5 @@ module.exports = class GameUi
     @info.show $ '#info'
     @overview.show $ '#overview'
     @components.show $ '#components'
+    @research.start()
     return
