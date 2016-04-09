@@ -7,10 +7,9 @@ module.exports = class ComponentsUi
     @template = Template
 
   show: (@componentsContainer) ->
-    @componentsContainer.html @template {
-      components: @_getComponents(),
+    @componentsContainer.html @template
+      components: @_getComponents()
       placeholder: Components.placeholder
-    }
     @table = @componentsContainer.find '#componentsTable'
     @table.mouseover (event) =>
       target = $ event.target

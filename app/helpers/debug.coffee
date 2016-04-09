@@ -1,7 +1,7 @@
 module.exports = (optionalValue) ->
   console.log('Current Context')
   console.log('====================')
-  console.log(this)
+  console.log(@)
   if optionalValue?
     console.log('Value')
     console.log('====================')
