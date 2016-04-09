@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Yet Another Reactor Game",
   "main": "App.coffee",
-  "license": "GPLv3",
+  "license": "MIT",
   "author": "Krzaku",
   "repository": {
     "type": "git",
