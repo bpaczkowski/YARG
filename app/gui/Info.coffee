@@ -2,7 +2,6 @@ Template = require 'template/info'
 
 module.exports = class InfoUi
   constructor: (@main) ->
-    @template = Template
 
   show: (@infoContainer) ->
     @main.eventManager.on 'ComponentHovered', @_componentHovered
@@ -23,9 +22,9 @@ module.exports = class InfoUi
 
   _componentHovered: (component) =>
     if not component and @component
-      @infoContainer.html @template { @component }
+      @infoContainer.html Template { @component }
     else
-      @infoContainer.html @template { component }
+      @infoContainer.html Template { component }
     return
 
   _componentClicked: (component) =>
@@ -39,20 +38,20 @@ module.exports = class InfoUi
 
   _cellHovered: (@tile) =>
     if @component and @tile
-      @infoContainer.html @template {
+      @infoContainer.html Template {
         buying: true,
         canBuild: @tile.type.canBuild and @tile.component.type is 'None',
         canBuy: @main.money >= @component.price
       }
     if not @component
-      @infoContainer.html @template { @tile }
+      @infoContainer.html Template { @tile }
     return
 
   _updateState: =>
     if not @component and @tile
-      @infoContainer.html @template { @tile }
+      @infoContainer.html Template { @tile }
     else if @component and @tile
-      @infoContainer.html @template {
+      @infoContainer.html Template {
         buying: true,
         canBuild: @tile.type.canBuild and @tile.component.type is 'None',
         canBuy: @main.money >= @component.price

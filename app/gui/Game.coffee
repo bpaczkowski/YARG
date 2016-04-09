@@ -7,18 +7,17 @@ $ = require 'jquery'
 
 module.exports = class GameUi
   constructor: (@grid) ->
-    @template = Template
     @main = @grid.main
     @grid = new GridUi @grid
     @info = new InfoUi @main
     @overview = new OverviewUi @main
     @components = new ComponentsUi @main
 
-  show: (@gameContainer) ->
-    @gameContainer = $ @gameContainer
-    @gameContainer.html @template
-    @grid.show @gameContainer.find '#grid'
-    @info.show @gameContainer.find '#info'
-    @overview.show @gameContainer.find '#overview'
-    @components.show @gameContainer.find '#components'
+  show: ->
+    @gameContainer = $ '#app'
+    @gameContainer.html Template()
+    @grid.show $ '#grid'
+    @info.show $ '#info'
+    @overview.show $ '#overview'
+    @components.show $ '#components'
     return

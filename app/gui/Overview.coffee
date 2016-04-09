@@ -2,7 +2,6 @@ Template = require 'template/overview'
 
 module.exports = class OverviewUi
   constructor: (@main) ->
-    @template = Template
 
   show: (@overviewContainer) ->
     @main.eventManager.on 'OverviewUpdate', @_overviewUpdate
@@ -17,7 +16,7 @@ module.exports = class OverviewUi
 
   _overviewUpdate: (force) =>
     if force or @_lastUpdate and Date.now() - @_lastUpdate > 1000 / 30
-      @overviewContainer.html @template { money: @main.money }
+      @overviewContainer.html Template { money: @main.money }
       @_lastUpdate = Date.now()
     else unless @_lastUpdate?
       @_lastUpdate = Date.now()

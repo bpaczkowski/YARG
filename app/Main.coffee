@@ -9,7 +9,7 @@ module.exports = class Main
     @grid = new Grid @, @height, @width
     @money = 20000
     @gameUi = new GameUi @grid
-    @gameUi.show '#app'
+    @gameUi.show()
     @setupTestGrid()
 
   addMoney: (money) ->
