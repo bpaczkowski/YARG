@@ -1,4 +1,8 @@
 #researchItemContainer {
+    font-size: .9em;
+
+    overflow-y: auto;
+
     width: 100%;
     height: 100%;
 }
@@ -6,11 +10,58 @@
 .researchItem {
     float: left;
 
-    width: 138px;
-    height: 80px;
+    width: 229px;
+    height: 130px;
     margin: 2px;
+    padding: 4px;
 
     border: 1px solid #666;
     border-radius: 5px;
     background: #ddd;
+}
+
+.researchItem * {
+    float: left;
+}
+
+.researchItemInner {
+    height: 88px;
+}
+
+.researchIcon {
+    width: 32px;
+    height: 32px;
+    margin: 1px 5px 2px 0;
+
+    border-radius: 5px;
+    /* test image */
+    background-image: url(../img/components/cell.png);
+    box-shadow: 0 0 5px 0 black;
+}
+
+.researchName {
+    font-weight: bold;
+
+    float: none;
+}
+
+.researchLevel {
+    font-weight: bold;
+}
+
+.researchPrice {
+    font-size: 1.1em;
+    font-weight: 600;
+
+    margin-top: -2px;
+
+    color: #959500;
+    text-shadow: 0 0 2px #aaa;
+}
+
+.buyResearchButton {
+    float: left;
+
+    width: 100%;
+    margin: 3px 0;
 }
