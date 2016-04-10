@@ -1,6 +1,7 @@
 .button {
     padding: 5px 15px;
 
+    text-align: center;
     text-decoration: none;
 
     color: #fff;
@@ -77,4 +78,14 @@
     border-radius: 10px;
     background: #eee;
     box-shadow: 0 0 10px 4px #555;
+}
+
+hr.bar {
+    width: auto;
+    height: 0;
+    margin: 0 -5px 0 -5px;
+
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    border-bottom: 1px solid rgba(255, 255, 255, .3);
 }
