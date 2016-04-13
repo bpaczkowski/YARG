@@ -34,8 +34,6 @@
     margin: 1px 5px 2px 0;
 
     border-radius: 5px;
-    /* test image */
-    background-image: url(../img/components/cell.png);
     box-shadow: 0 0 5px 0 black;
 }
 
