@@ -2,12 +2,14 @@ EventManager = require 'util/EventManager'
 Grid = require 'Grid'
 GameUi = require 'gui/Game'
 Components = require 'config/Components'
+Research = require 'config/Research'
 
 module.exports = class Main
   constructor: (@height, @width) ->
     @eventManager = new EventManager()
     @grid = new Grid @, @height, @width
     @money = 20000
+    @research = {}
     @gameUi = new GameUi @grid
     @gameUi.show()
     @setupTestGrid()
@@ -45,3 +47,39 @@ module.exports = class Main
       clearInterval @timer
       @timer = null
     return
+
+  addResearchLevel: (research, value) ->
+    if @research[research]?
+      @research[research] += value
+    else
+      @research[research] = value
+
+  buyResearchLevel: (research, value) ->
+    return false unless Research[research]?
+    price = @getResearchPrice(research)
+    if @money >= price
+      @addResearchLevel research, value
+      @addMoney(-price)
+      return true
+    return false
+
+  getResearchLevel: (research) ->
+    if @research[research]?
+      return @research[research]
+    return 0
+
+  getResearchPrice: (research, value) ->
+    return unless Research[research]?
+    if value?
+      level = value
+    else if @research[research]?
+      level = @research[research]
+    else
+      level = 0
+    base = Research[research].basePrice
+    mult = Research[research].priceMult
+    price = base * Math.pow(mult, level)
+    return price
+
+  canBuyResearch: (research, value) ->
+    return @money >= @getResearchPrice research, value

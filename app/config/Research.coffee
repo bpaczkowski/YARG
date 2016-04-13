@@ -7,7 +7,7 @@ module.exports =
     description: 'Increases all generators heat absorption by 10% per level.'
     image: Components.Gen1.image
     basePrice: 2000
-    priceIncrease: 1.15
+    priceMult: 1.15
     heatAbsorptionMult: 1.1
   CellProduction1:
     codename: 'CellProduction1'
@@ -15,5 +15,5 @@ module.exports =
     description: 'Increases all cells heat production by 10% per level.'
     image: Components.Cell1.image
     basePrice: 2000
-    priceIncrease: 1.15
+    priceMult: 1.15
     heatProductionMult: 1.1
