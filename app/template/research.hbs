@@ -2,51 +2,26 @@
     <div id="researchArea" class="gameWindowInner">
         <a href="javascript:void(0);" id="closeResearchButton" class="closeButton"></a>
         <div id="researchItemContainer">
-            <div class="researchItem">
+            {{#each research}}
+            <div id="{{codename}}" class="researchItem">
                 <div class="researchItemInner">
-                    <div class="researchIcon"></div>
-                    <span class="researchName">FooResearch</span>
+                    <div class="researchIcon" style="background-image: url({{image}})"></div>
+                    <span class="researchName">{{name}}</span>
                     <div style="width: 182px;">
                         <div>
                             <span>Level:&nbsp;</span>
-                            <span class="researchLevel">1</span>
+                            <span class="researchLevel">{{level}}</span>
                         </div>
                         <div style="float: right;">
                             <span>Price:&nbsp;</span>
-                            <span class="researchPrice">200000$</span>
+                            <span class="researchPrice">{{formatMoney price}}</span>
                         </div>
                     </div>
-                    <span>Increases all generators heat absorption by 10% per level.</span>
+                    <span>{{description}}</span>
                 </div>
-                <a href="javascript:void(0);" id="buyFooResearchButton" class="buyResearchButton button">Buy</a>
+                <a href="javascript:void(0);" data-research-codename="{{codename}}" class="buyResearchButton button">Buy</a>
             </div>
-            <div class="researchItem">
-                <div class="researchIcon"></div>
-            </div>
-            <div class="researchItem">
-                <div class="researchIcon"></div>
-            </div>
-            <div class="researchItem">
-                <div class="researchIcon"></div>
-            </div>
-            <div class="researchItem">
-                <div class="researchIcon"></div>
-            </div>
-            <div class="researchItem">
-                <div class="researchIcon"></div>
-            </div>
-            <div class="researchItem">
-                <div class="researchIcon"></div>
-            </div>
-            <div class="researchItem">
-                <div class="researchIcon"></div>
-            </div>
-            <div class="researchItem">
-                <div class="researchIcon"></div>
-            </div>
-            <div class="researchItem">
-                <div class="researchIcon"></div>
-            </div>
+            {{/each}}
         </div>
     </div>
 </div>
