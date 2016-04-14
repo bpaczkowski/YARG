@@ -13,6 +13,7 @@ module.exports = class ResearchUi
   show: =>
     $('#app').append Template @_getResearch()
     @container = $ '#researchArea'
+    @main.eventManager.on 'OverviewUpdate', @_moneyUpdate
     $('#closeResearchButton').click @hide
     @container.find('.buyResearchButton').click (event) =>
       target = $ event.target
@@ -31,7 +32,16 @@ module.exports = class ResearchUi
     return
 
   hide: =>
+    @main.eventManager.off 'OverviewUpdate', @_moneyUpdate
     @container.parent().remove()
+
+  _moneyUpdate: (force) =>
+    if force or @_lastUpdate and Date.now() - @_lastUpdate > 1000 / 30
+      $('#researchMoney').text FormatMoney @main.money
+      @_lastUpdate = Date.now()
+    else unless @_lastUpdate?
+      @_lastUpdate = Date.now()
+    return
 
   _restoreBuyText: (button, codename) =>
     button.text 'Buy'
@@ -40,6 +50,7 @@ module.exports = class ResearchUi
 
   _getResearch: ->
     results =
+      money: @main.money
       research: []
     for codename, research of Research
       results.research.push

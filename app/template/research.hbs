@@ -1,7 +1,9 @@
 <div class="gameWindow">
     <div id="researchArea" class="gameWindowInner">
         <a href="javascript:void(0);" id="closeResearchButton" class="closeButton"></a>
-        <div id="researchItemContainer">
+        <span>Money: <span id="researchMoney" class="researchPrice">{{formatMoney money}}</span></span>
+        <hr class="bar" style="margin: 0 -15px;">
+        <div class="researchItemContainer">
             {{#each research}}
             <div id="{{codename}}" class="researchItem">
                 <div class="researchItemInner">
