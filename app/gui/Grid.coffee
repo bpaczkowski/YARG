@@ -58,7 +58,7 @@ module.exports = class GridUi
       lifetimeBar.parent().remove()
 
     heatBar = tileElement.find '.heatBarMax .heatBar'
-    if tile.component.heatCanTransfer
+    if tile.component.heatStore
       if heatBar.length is 0
         heatBar = tileElement
                   .append "<div class=\"heatBarMax\"><div id=\"heatBar#{tile.index}\" class=\"heatBar\"></div></div>"
@@ -80,7 +80,7 @@ module.exports = class GridUi
         if tile.component.lifetime?
           lifetimeBar = $("#lifetimeBar#{tile.index}")
           lifetimeBar.css 'width', 100 - Math.ceil(tile.lifetimeValue / tile.component.lifetime * 100) + '%'
-        if tile.component.heatCanTransfer
+        if tile.component.heatStore
           heatBar = $("#heatBar#{tile.index}")
           heatBar.css 'width', Math.ceil(tile.heatValue / tile.component.maxHeat * 100) + '%'
       @_tileLastUpdate = Date.now()

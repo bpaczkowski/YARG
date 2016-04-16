@@ -8,21 +8,19 @@ module.exports =
     name: 'None'
     type: 'None'
     image: 'img/components/empty_tile.png'
-    heatCanTransfer: false
   HeatPipe:
     canBuy: false
     codename: 'HeatPipe'
     name: 'Heat pipe'
     type: 'HeatPipe'
     image: 'img/components/placeholder.png'
-    heatCanTransfer: true
+    heatStore: true
     price: 50
   Cell1:
     codename: 'Cell1'
     name: 'Plutonium Cell MK I'
     type: 'Cell'
     image: 'img/components/cell.png'
-    heatCanTransfer: true
     heatProduction: 20
     maxHeat: 200
     price: 500
@@ -32,7 +30,7 @@ module.exports =
     name: 'Steam generator MK I'
     type: 'Gen'
     image: 'img/components/steam-turbine.png'
-    heatCanTransfer: true
+    heatStore: true
     canAcceptHeat: true
     heatAbsorption: 5
     maxHeat: 50
@@ -43,7 +41,7 @@ module.exports =
     name: 'Steam generator MK II'
     type: 'Gen'
     image: 'img/components/steam-turbine.png'
-    heatCanTransfer: true
+    heatStore: true
     canAcceptHeat: true
     heatAbsorption: 20
     maxHeat: 200
