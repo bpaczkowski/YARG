@@ -1,6 +1,6 @@
 <span class="header">Info</span>
 <hr class="bar">
-{{#if buying}}
+{{#ifCond infoType '===' 'buying'}}
     {{#if canBuild}}
         {{#if canBuy}}
             <span>Click to buy component.</span>
@@ -10,40 +10,26 @@
     {{else}}
         <span>You can't build here.</span>
     {{/if}}
-{{else if tile}}
-    {{#ifCond tile.component.type '!==' 'None'}}
-        {{#with tile}}
-            {{#with component}}
-                <span>{{name}}</span><br>
-                {{#if heatProduction}}
-                    <span>Produces <span class="heatText">{{heatProduction}}</span> heat per tick.</span><br>
-                {{/if}}
-                {{#if heatAbsorption}}
-                    <span>Absorbs <span class="heatText">{{heatAbsorption}}</span> heat per tick.</span><br>
-                {{/if}}
-                {{#if heatCanTransfer}}
-                    <span>Heat: {{toFixed ../heatValue 0}}/{{maxHeat}}</span><br>
-                {{/if}}
-                {{#if lifetime}}
-                    <span>Lifetime: {{math lifetime '-' ../lifetimeValue}}/{{lifetime}}</span>
-                {{/if}}
-            {{/with}}
-        {{/with}}
-    {{else}}
-        <span>{{tile.type.type}}</span>
-    {{/ifCond}}
-{{else if component}}
-    {{#with component}}
-        <span>{{name}}</span><br>
-        <span>Price: ${{price}}</span><br>
-        {{#if lifetime}}<span>Lifetime: {{lifetime}} ticks.</span><br>{{/if}}
-        {{#if heatProduction}}
-            <span>Produces <span class="heatText">{{heatProduction}}</span> heat per tick.</span><br>
-        {{/if}}
-        {{#if heatAbsorption}}
-            <span>Absorbs <span class="heatText">{{heatAbsorption}}</span> heat per tick.</span>
-        {{/if}}
-    {{/with}}
 {{else}}
-    <span>Hover over tile or component to show more info.</span>
-{{/if}}
+    {{#ifCond infoType '===' 'tile'}}
+        {{#ifCond name '!==' 'None'}}
+            <span>{{name}}</span><br>
+            {{#if heatProduction}} <span>Produces <span class="heatText">{{heatProduction}}</span> heat per tick.</span><br> {{/if}}
+            {{#if heatAbsorption}} <span>Absorbs <span class="heatText">{{heatAbsorption}}</span> heat per tick.</span><br> {{/if}}
+            {{#if heatStore}} <span>Heat: {{heatValue}}/{{maxHeat}}</span><br> {{/if}}
+            {{#if lifetimeValue}} <span>Lifetime: {{lifetimeValue}}/{{maxLifetime}}</span> {{/if}}
+        {{else}}
+            <span>{{tileType}}</span>
+        {{/ifCond}}
+    {{else}}
+        {{#ifCond infoType '===' 'component'}}
+            <span>{{name}}</span><br>
+            <span>Price: ${{price}}</span><br>
+            {{#if lifetime}}<span>Lifetime: {{lifetime}} ticks.</span><br>{{/if}}
+            {{#if heatProduction}} <span>Produces <span class="heatText">{{heatProduction}}</span> heat per tick.</span><br> {{/if}}
+            {{#if heatAbsorption}} <span>Absorbs <span class="heatText">{{heatAbsorption}}</span> heat per tick.</span> {{/if}}
+        {{else}}
+            <span>Hover over tile or component to show more info.</span>
+        {{/ifCond}}
+    {{/ifCond}}
+{{/ifCond}}

@@ -81,5 +81,20 @@ module.exports = class Main
     price = base * Math.pow(mult, level)
     return price
 
+  # accepts either tile or component as parameter
+  # calculates heat production/absorption multiplier
+  getTileHeatMultiplier: (data) ->
+    component = data.component or data
+    if component.type is 'Cell'
+      if @research.CellProduction1?
+        1 + Research.CellProduction1.heatProductionMult * @research.CellProduction1
+      else
+        1
+    else if component.type is 'Gen'
+      if @research.GenAbsorption1?
+        1 + Research.GenAbsorption1.heatAbsorptionMult * @research.GenAbsorption1
+      else
+        1
+
   canBuyResearch: (research, value) ->
     return @money >= @getResearchPrice research, value
