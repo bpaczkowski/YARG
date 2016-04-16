@@ -73,7 +73,8 @@ module.exports = class Grid
           tile.resetTile()
           changed = true
         else
-          heat = tile.component.heatProduction / neighbors.length
+          heatProduction = tile.component.heatProduction * @main.getTileHeatMultiplier tile
+          heat = heatProduction / neighbors.length
           neighbor.heatValue += heat for neighbor in neighbors
 
       # Push the tile to UI update list
@@ -83,10 +84,11 @@ module.exports = class Grid
     for tile in @tiles
       # Calculation for 'generator' component type
       if tile.component.type is 'Gen'
-        if tile.heatValue < tile.component.heatAbsorption
+        heatAbsorption = tile.component.heatAbsorption * @main.getTileHeatMultiplier tile
+        if tile.heatValue < heatAbsorption
           absorbed = tile.heatValue
         else
-          absorbed = tile.component.heatAbsorption
+          absorbed = heatAbsorption
         tile.heatValue -= absorbed
         money += absorbed * tile.component.heatAbsorbedToMoneyMultiplier
 

@@ -8,7 +8,7 @@ module.exports =
     image: Components.Gen1.image
     basePrice: 2000
     priceMult: 1.15
-    heatAbsorptionMult: 1.1
+    heatAbsorptionMult: 0.1
   CellProduction1:
     codename: 'CellProduction1'
     name: 'Cell Heat Production'
@@ -16,4 +16,4 @@ module.exports =
     image: Components.Cell1.image
     basePrice: 2000
     priceMult: 1.15
-    heatProductionMult: 1.1
+    heatProductionMult: 0.1
