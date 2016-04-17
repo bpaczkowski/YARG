@@ -2,7 +2,10 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './app/App',
+  entry: {
+    app: './app/App',
+    vendor: ['jquery', 'handlebars/runtime']
+  },
   devtool: 'inline-source-map',
   debug: true,
   output: {
@@ -13,6 +16,9 @@ module.exports = {
     root: path.resolve('./app'),
     extensions: ['', '.js', '.coffee', '.hbs']
   },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
+  ],
   module: {
     loaders: [
       {
