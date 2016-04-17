@@ -56,6 +56,7 @@ module.exports = class Main
 
   buyResearchLevel: (research, value) ->
     return false unless Research[research]?
+    return false if Research[research].maxLevel? and @research[research]? and @research[research] + value >= Research[research].maxLevel
     price = @getResearchPrice(research)
     if @money >= price
       @addResearchLevel research, value
@@ -97,4 +98,9 @@ module.exports = class Main
         1
 
   canBuyResearch: (research, value) ->
-    return @money >= @getResearchPrice research, value
+    if Research[research].maxLevel? and @research[research]? and @research[research] + (value or 1) >= Research[research].maxLevel
+      return 'MaxLevel'
+    if @money >= @getResearchPrice research, value
+      return 'CanBuy'
+    else
+      return 'NotEnoughMoney'
