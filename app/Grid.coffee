@@ -61,8 +61,12 @@ module.exports = class Grid
       # Tile lifetime calculation
       if tile.component.type isnt 'None' and tile.component.lifetime?
         if tile.lifetimeValue is tile.component.lifetime
+          oldComponent = tile.component
           tile.resetTile()
-          changed = true
+          if @main.research.AutoReplacePlutonium and oldComponent.codename is 'Cell1'
+            @buyComponent oldComponent, tile.index, true
+          else
+            changed = true
         else
           tile.lifetimeValue += 1
 
@@ -119,21 +123,16 @@ module.exports = class Grid
     return false
 
   ###
-  # buys component from the 1st parameter
-  # 2nd and 3rd parameter can be either row/column or an index
+  # buys component at the specified tile index
   ###
-  buyComponent: ->
-    return false if arguments.length < 2
-    component = arguments[0]
-    if arguments.length is 3
-      tile = @getTile arguments[1], arguments[2]
-    else if arguments.length is 2
-      tile = @getTile arguments[1]
+  buyComponent: (component, index, dontRefreshTile) ->
+    component = component
+    tile = @getTile index
 
     if tile and tile.type.canBuild and
     tile.component.type is 'None' and @main.money >= component.price
       tile.component = component
       @main.addMoney -component.price
-      @main.eventManager.emit 'TilesUpdate', [ tile ]
+      @main.eventManager.emit 'TilesUpdate', [ tile ] unless dontRefreshTile
       return true
     return false

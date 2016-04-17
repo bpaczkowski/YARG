@@ -17,3 +17,11 @@ module.exports =
     basePrice: 2000
     priceMult: 1.15
     heatProductionMult: 0.1
+  AutoReplacePlutonium:
+    codename: 'AutoReplacePlutonium'
+    name: 'Auto-Replace Plutonium Cells'
+    description: 'Replaces plutonium cells after depletion, if you have enough money.'
+    image: Components.Cell1.image
+    basePrice: 20000
+    priceMult: 1
+    maxLevel: 1
